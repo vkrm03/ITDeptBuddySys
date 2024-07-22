@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/97ebdf5864.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="w3-top">
+        <div class="w3-bar w3-black w3-card" style="height: 55px;padding-left: 6px; font-size: 16px;">
+          <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+          <a href="/" class="w3-bar-item w3-button w3-padding-large">Home</a>
+          <a href="/about" class="w3-bar-item w3-button w3-padding-large w3-hide-small">About</a>
+          <a href="/mentees" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Our Mentees</a>
+          <a href="/login" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Login</a>
+          <a href="https://www.sathyabama.ac.in/" target="_blank" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-solid fa-graduation-cap"></i></a>
+        </div>
+      </div>
+     
+    <div class="container">
+        <h2>Login</h2>
+
+        <form action="/login" method="POST">
+            <div class="select">
+                <select name="roles" id="role">
+                    <option value="adm">Admin</option>
+                    <option value="stf">Staff</option>
+                    <option value="std">Student</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="email" id="emailOrReg" placeholder="Email" name="email" value="" required><br>
+                <i class="fa-solid fa-envelope"></i>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="passordob" placeholder="Password" name="pass" value="" required><br>
+                <i class="fa-solid fa-lock"></i>
+            </div>
+
+            <p><a href="#" class="forget">Forget Password</a></p>
+
+            <input id="btn" type="submit" value="Login">
+        </form>
+    </div>
+
+    <% if (error) { %>
+        <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<%= error %>'
+        });
+    </script>
+    <% } else if (logout) { %>
+        <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Logged out',
+            text: 'You have been logged out successfully'
+        });
+    </script>
+    <% } else if (success) { %>
+        <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Logged in successfully'
+        });
+    </script>
+    <% } %>
+
+    <script>
+        document.getElementById('role').addEventListener('change', function() {
+            var selectedRole = this.value;
+            var emailOrRegInput = document.getElementById('emailOrReg');
+            var passordob= document.getElementById('passordob');
+            var icon = document.querySelector('.form-group i');
+
+            if (selectedRole === 'std') {
+                emailOrRegInput.type = 'text';
+                emailOrRegInput.placeholder = 'Register Number';
+                emailOrRegInput.name = 'regno';
+                passordob.placeholder = "Date of Birth (eg:12/04/2003)"
+                passordob.type = "text"
+                passordob.name = "passordob"
+                icon.classList.remove('fa-envelope');
+                icon.classList.add('fa-id-badge');
+            } else {
+                emailOrRegInput.type = 'email';
+                emailOrRegInput.placeholder = 'Email';
+                emailOrRegInput.name = 'email';
+                passordob.placeholder = "password"
+                passordob.type = "text"
+                passordob.name = "pass"
+                icon.classList.remove('fa-id-badge');
+                icon.classList.add('fa-envelope');
+            }
+        });
+    </script>
+</body>
+</html>

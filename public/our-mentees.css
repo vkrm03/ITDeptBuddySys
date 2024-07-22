@@ -1,0 +1,43 @@
+.name-card-container {
+    max-height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 60px;
+}
+
+.name-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    margin-top: 70px;
+}
+
+.profile-img img {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.details h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.details p {
+    margin: 5px 0;
+    color: #666;
+}

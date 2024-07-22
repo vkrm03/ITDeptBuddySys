@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particular std info</title>
+    
+    <link rel="stylesheet" href="/particular-student-stats.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="https://erp.sathyabama.ac.in/assets/images/logo-new.png" alt="Logo">
+        </div>
+        <div class="user-profile">
+            <img src="https://erp.sathyabama.ac.in/assets/images/Chancellor.jpg" alt="User Avatar">
+            <div class="username">Staff</div>
+            <a href="/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i>  Logout</a>
+        </div>
+    </nav>
+
+
+
+    <div class="container">
+        <div class="sidebar">
+            <h1 class="dash">Dashboard</h1>
+            <div class="admin-profile">
+                <div class="admin-icon"><img src="/Mentees/SundaraVelrani.jpg" alt="Staff Image"></div>
+                <p><%=StaffName%></p>
+            </div>
+            <ul>
+                <li><a href="/dashboard"><i class="fas fa-home"></i>  Home</a></li>
+                <li><a href="/odop-mentee-question"><i class="fas fa-edit"></i>  ODOP</a></li>
+                <li><a href="/edit-student"><i class="fas fa-user-plus"></i>  Edit Student</a></li>
+                <li><a href="/student-stats"><i class="fas fa-file-alt"></i>  Student Statistics</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>Name's info</h1>
+            <div class="details">
+                <div class="detail-row">
+                    <div class="label">Name:</div>
+                    <div class="value"><%=student_data.Std_Name%></div>
+                </div>
+                <div class="detail-row">
+                    <div class="label">Reg No:</div>
+                    <div class="value"><%=student_data.Reg_No%></div>
+                </div>
+                <div class="detail-row">
+                    <div class="label">Average Marks:</div>
+                    <div class="value">89</div>
+                </div>
+
+
+            <table class="marks-table">
+                <thead>
+                    <tr>
+                        <th>ODOP Days</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Submited Date</th>
+                        <th>Open</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td>Day 1</td>
+                        <td>Submited</td>
+                        <td>17/04/2024</td>
+                        <td>17/09/2024</td>
+                        <td><button class="open-btn">Open</button></td>
+                    </tr>
+                    <tr>
+                        <td>Day 2</td>
+                        <td>Submited</td>
+                        <td>17/04/2024</td>
+                        <td>17/09/2024</td>
+                        <td><button class="open-btn">Open</button></td>
+                    </tr>
+                    <tr>
+                        <td>Day 3</td>
+                        <td>Submited</td>
+                        <td>17/04/2024</td>
+                        <td>17/09/2024</td>
+                        <td><button class="open-btn">Open</button></td>
+                    </tr>
+                    <tr>
+                        <td>Day 4</td>
+                        <td>Submited</td>
+                        <td>17/04/2024</td>
+                        <td>17/09/2024</td>
+                        <td><button class="open-btn">Open</button></td>
+                    </tr>
+                    <tr>
+                        <td>Day 5</td>
+                        <td>Submited</td>
+                        <td>17/04/2024</td>
+                        <td>17/09/2024</td>
+                        <td><button class="open-btn">Open</button></td>
+                    </tr>
+                    <tr>
+                        <td>Day 6</td>
+                        <td>Submited</td>
+                        <td>17/04/2024</td>
+                        <td>17/09/2024</td>
+                        <td><button class="open-btn">Open</button></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+        
+            
+        </div>
+    </div>
+</body>
+</html>
