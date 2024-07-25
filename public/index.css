@@ -1,0 +1,39 @@
+
+body {
+    background: rgba(0, 0, 0, 0.5) url("https://www.orchidfoundation.info/sites/default/files/2021-01/Sathyabama%20%20Science%20Technology%202.png") no-repeat center fixed;
+    background-size: cover;
+    background-blend-mode: darken;
+    overflow: hidden;
+    margin: 0;
+    padding: 0
+}
+.link-icons {
+    margin-top: 80px;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.content-container {
+    max-height: 660px;
+    color: white;
+    height: 100vh;
+}
+
+body {
+    font-family: "Lato", sans-serif
+}
+.mySlides {
+    display: none
+}
+
+@media (max-width: 600px) {
+    .whole-content {
+        height: 880px;
+    }
+    .link-icons {
+        margin-top: 10px;
+    }
+    
+}

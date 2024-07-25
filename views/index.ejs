@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-card" style="height: 56px; font-size: 17px;">
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="/" class="w3-bar-item w3-button w3-padding-large">Home</a>
+    <a href="/about" class="w3-bar-item w3-button w3-padding-large w3-hide-small">About</a>
+    <a href="/mentees" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Our Mentees</a>
+    <a href="/login" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Login</a>
+    <a href="https://www.sathyabama.ac.in/" target="_blank" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-solid fa-graduation-cap"></i></a>
+  </div>
+</div>
+
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+  <a href="/about" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">About</a>
+  <a href="/mentees" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Student Mentees</a>
+  <a href="/login" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Login</a>
+</div>
+
+<div class="whole-content">
+
+
+  <div class="w3-content content-container" style="margin-top:80px;">
+
+    <div class="w3-container w3-content w3-center w3-padding-64"  id="band">
+      <h2 class="w3-wide" style="font-size: 30px;">SATHYABAMA INSTITUTE OF SCIENCE AND TECHNOLOGY</h2>
+      <p class="w3-opacity" style="margin-top: 70px;"><i>DEPARTMENT OF INFORMATION TECHNOLOGY</i></p>
+      <p class="w3-justify" style="margin-top: 70px; font-size: 18px;">"We're thrilled to have you join our dynamic and innovative community. Here, you'll embark on a journey of exploration, learning, and collaboration in the ever-evolving world of technology. Whether you're a seasoned professional or just beginning your IT adventure, you'll find endless opportunities to grow, excel, and make a meaningful impact. Together, let's push boundaries, harness the power of technology, and pave the way for a brighter future."</p>
+    </div>
+  
+  
+    <footer class="link-icons">
+      <a href="https://www.facebook.com/SathyabamaOfficial/" target=”_blank><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+      <a href="https://www.instagram.com/sathyabama.official/" target=”_blank><i class="fa fa-instagram w3-hover-opacity"></i></a>
+      <a href="https://www.youtube.com/channel/UCkBMqT83pxjwPhh8mUpZ0hQ" target=”_blank><i class="fa fa-youtube w3-hover-opacity"></i></a>
+      <a href="https://x.com/sathyabamauniv?lang=en" target=”_blank><i class="fa fa-twitter w3-hover-opacity"></i></a>
+      <a href="https://www.linkedin.com/school/sathyabama-institute-of-science-&-technology-chennai/posts/?feedView=all" target=”_blank><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+    </footer> 
+    
+  
+  </div>
+
+</div>
+<script>
+
+var myIndex = 0;
+carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}    
+  x[myIndex-1].style.display = "block";  
+  setTimeout(carousel, 4000);    
+}
+
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+
+var modal = document.getElementById('ticketModal');
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
