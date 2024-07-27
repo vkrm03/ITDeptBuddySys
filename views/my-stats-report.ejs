@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particular std info</title>
+    
+    <link rel="stylesheet" href="/particular-student-stats.css">
+    <link rel="stylesheet" href="/report.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="https://erp.sathyabama.ac.in/assets/images/logo-new.png" alt="Logo">
+        </div>
+        <div class="user-profile">
+            <img src="https://erp.sathyabama.ac.in/assets/images/Chancellor.jpg" alt="User Avatar">
+            <div class="username">Student</div>
+            <a href="/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i>  Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="sidebar">
+            <h1 class="dash">Dashboard</h1>
+            <div class="admin-profile">
+                <div class="admin-icon"><img src="/img/student.jpg" alt="Staff Image"></div>
+                <p><%=student_data.std_name%></p>
+            </div>
+            <ul>
+                <li><a href="/student-dashboard"><i class="fas fa-home"></i>  Home</a></li>
+                <li><a href="/odop-std-question"><i class="fas fa-edit"></i>  ODOP Question</a></li>
+                <li><a href="/edit-my"><i class="fas fa-user-plus"></i>  Edit</a></li>
+                <li><a href="/my-stats"><i class="fas fa-file-alt"></i>  My Statistics</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>Week Statistics</h1>
+            <h3>Question</h3>
+            <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum nulla accusamus provident id, mollitia autem iure in. Lorem ipsum dolor sit amet1203sdf?</h4> 
+            <h3>Answer</h3>
+            <div id="code-container"></div>
+            <h3>Output</h3>
+            <div id="output-container"></div>
+              
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const codeSnippets = [
+                        `def flattenjson(b, delim):
+    val = {}
+    for i in b.keys():
+        if isinstance(b[i], dict):
+            get = flattenjson(b[i], delim)
+            for j in get.keys():
+                val[i + delim + j] = get[j]
+        else:
+            val[i] = b[i]
+    return val`
+                    ];
+
+                    const container = document.getElementById('code-container');
+
+                    codeSnippets.forEach((snippet, index) => {
+                        const codeBlock = document.createElement('div');
+                        codeBlock.className = 'code-block';
+
+                        const pre = document.createElement('pre');
+                        const code = document.createElement('code');
+                        code.innerText = snippet;
+                        code.setAttribute('id', `code-block-${index}`);
+                        pre.appendChild(code);
+
+                        const copyIcon = document.createElement('i');
+                        copyIcon.className = 'fas fa-copy copy-icon';
+                        copyIcon.setAttribute('title', 'Copy Code');
+                        copyIcon.onclick = () => copyCode(`code-block-${index}`, copyIcon);
+
+                        codeBlock.appendChild(pre);
+                        codeBlock.appendChild(copyIcon);
+                        container.appendChild(codeBlock);
+                    });
+                });
+
+                function copyCode(codeBlockId, iconElement) {
+                    const code = document.getElementById(codeBlockId).innerText;
+                    navigator.clipboard.writeText(code).then(() => {
+                        iconElement.classList.add('copied');
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                }
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const codeSnippets = [
+                        `Factorial of 5 is 120
+
+=== Code Execution Successful ===`
+                    ];
+
+                    const container = document.getElementById('output-container');
+
+                    codeSnippets.forEach((snippet, index) => {
+                        const codeBlock = document.createElement('div');
+                        codeBlock.className = 'code-block';
+
+                        const pre = document.createElement('pre');
+                        const code = document.createElement('code');
+                        code.innerText = snippet;
+                        code.setAttribute('id', `code-block-${index}`);
+                        pre.appendChild(code);
+
+                        codeBlock.appendChild(pre);
+                        container.appendChild(codeBlock);
+                    });
+                });
+            </script>
+    </div>
+</body>
+</html>

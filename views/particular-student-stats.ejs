@@ -37,7 +37,7 @@
             </ul>
         </div>
         <div class="main-content">
-            <h1>Name's info</h1>
+            <h1><%=student_data.std_name%>'s info</h1>
             <div class="details">
                 <div class="detail-row">
                     <div class="label">Name:</div>
@@ -56,9 +56,9 @@
             <table class="marks-table">
                 <thead>
                     <tr>
-                        <th>ODOP Days</th>
-                        <th>Status</th>
-                        <th>Due Date</th>
+                        <th>ODOP Weeks</th>
+                        <th>Remarks</th>
+                        <th>Marks</th>
                         <th>Submited Date</th>
                         <th>Open</th>
                     </tr>
@@ -66,18 +66,18 @@
                 <tbody>
                     
                     <tr>
-                        <td class="day">Day 1</td>
-                        <td>Submited</td>
-                        <td>17/04/2024</td>
+                        <td class="day">Week 1</td>
+                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                        <td>36</td>
                         <td>17/09/2024</td>
-                        <td><a href="/student-stats/odop-info?day="><button class="open-btn">Open</button></a></td>
+                        <td><a href="/student-stats/info/report?week=1"><button class="open-btn">Open</button></a></td>
                     </tr>
                     <tr>
-                        <td class="day">Day 2</td>
-                        <td>Submited</td>
-                        <td>17/04/2024</td>
+                        <td class="day">Week 2</td>
+                        <td>Submited super explained</td>
+                        <td>25</td>
                         <td>17/09/2024</td>
-                        <td><a href="/student-stats/odop-info?day="><button class="open-btn">Open</button></a></td>
+                        <td><a href="/student-stats/info/report?week=2"><button class="open-btn">Open</button></a></td>
                     </tr>
                     
                 </tbody>

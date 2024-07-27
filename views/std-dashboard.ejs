@@ -31,14 +31,14 @@
                 <p><%=std_data.std_name%></p>
             </div>
             <ul>
-                <li><a href="/std-dashboard"><i class="fas fa-home"></i>  Home</a></li>
+                <li><a href="/student-dashboard"><i class="fas fa-home"></i>  Home</a></li>
                 <li><a href="/odop-std-question"><i class="fas fa-edit"></i>  ODOP Question</a></li>
-                <li><a href="/edit-my"><i class="fas fa-user-plus"></i>  Edit Student</a></li>
-                <li><a href="/my-stats"><i class="fas fa-file-alt"></i>  Student Statistics</a></li>
+                <li><a href="/edit-my"><i class="fas fa-user-plus"></i>  Edit</a></li>
+                <li><a href="/my-stats"><i class="fas fa-file-alt"></i>  My Statistics</a></li>
             </ul>
         </div>
         <div class="main-content">
-            <h1>Mentee Information</h1>
+            <h1>My Information</h1>
             <div class="details">
                 <div class="detail-row">
                     <div class="label">Name:</div>
@@ -49,8 +49,8 @@
                     <div class="value"><%=std_data.std_email%></div>
                 </div>
                 <div class="detail-row">
-                    <div class="label">Gender:</div>
-                    <div class="value">Male</div>
+                    <div class="label">Date of birth:</div>
+                    <div class="value"><%=std_data.std_dob%></div>
                 </div>
                 <div class="detail-row">
                     <div class="label">Mobile No:</div>

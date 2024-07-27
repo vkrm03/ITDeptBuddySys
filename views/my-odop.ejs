@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODOP Info</title>
+    <link rel="stylesheet" href="odop-std-question.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="https://erp.sathyabama.ac.in/assets/images/logo-new.png" alt="Logo">
+        </div>
+        <div class="user-profile">
+            <img src="https://erp.sathyabama.ac.in/assets/images/Chancellor.jpg" alt="User Avatar">
+            <div class="username">Student</div>
+            <a href="/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i>  Logout</a>
+        </div>
+    </nav>
+
+
+
+    <div class="container">
+        <div class="sidebar">
+            <h1 class="dash">Dashboard</h1>
+            <div class="admin-profile">
+                <div class="admin-icon"><img src="/img/student.jpg" alt="Staff Image"></div>
+                <p><%=std_data.std_name%></p>
+            </div>
+            <ul>
+                <li><a href="/student-dashboard"><i class="fas fa-home"></i>  Home</a></li>
+                <li><a href="/odop-std-question"><i class="fas fa-edit"></i>  ODOP Question</a></li>
+                <li><a href="/edit-my"><i class="fas fa-user-plus"></i>  Edit</a></li>
+                <li><a href="/my-stats"><i class="fas fa-file-alt"></i>  My Statistics</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>ODOP Question</h1>
+            <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum nulla accusamus provident id, mollitia autem iure in. Lorem ipsum dolor sit amet1203.</h4> 
+            <div class="datetime-container">
+                <label for="deadline">Deadline Time :</label>
+                <input type="text" name="deadline" id="deadline" placeholder="17/02/2024" disabled>
+              </div>  
+              <div class="link-container">
+                <label for="link">Meeting Link :</label>
+                <input type="text" name="deadline" id="link" placeholder="https://chatgpt.com/c/239d192a-760e-4ea8-a45f-59d4a63b8df5" disabled> <span class="copy-icon" onclick="copyPlaceholder()">&#x2398;</span>
+              </div>  
+            <textarea name="odop-ans" id="odop-ques" maxlength="150" placeholder="Enter the Answer Here"></textarea>
+            <textarea name="odop-output" id="odop-ques" maxlength="150" placeholder="Enter the Output Here"></textarea>
+            <div class="submit-btn"><button class="submit">Submit</button></div>
+        </div>
+    </div>
+    <script>
+        function copyPlaceholder() {
+            const input = document.getElementById('link');
+            const placeholderText = input.placeholder;
+            const tempTextarea = document.createElement('textarea');
+            tempTextarea.value = placeholderText;
+            document.body.appendChild(tempTextarea);
+            tempTextarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextarea);
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Info</title>
+    <link rel="stylesheet" href="/edit-admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="https://erp.sathyabama.ac.in/assets/images/logo-new.png" alt="Logo">
+        </div>
+        <div class="user-profile">
+            <img src="https://erp.sathyabama.ac.in/assets/images/Chancellor.jpg" alt="User Avatar">
+            <div class="username">Student</div>
+            <a href="/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i>  Logout</a>
+        </div>
+    </nav>
+
+
+
+    <div class="container">
+        <div class="sidebar">
+            <h1 class="dash">Dashboard</h1>
+            <div class="admin-profile">
+                <div class="admin-icon"><img src="/img/student.jpg" alt="Staff Image"></div>
+                <p><%=std_data.std_name%></p>
+            </div>
+            <ul>
+                <li><a href="/student-dashboard"><i class="fas fa-home"></i>  Home</a></li>
+                <li><a href="/odop-std-question"><i class="fas fa-edit"></i>  ODOP Question</a></li>
+                <li><a href="/edit-my"><i class="fas fa-user-plus"></i>  Edit</a></li>
+                <li><a href="/my-stats"><i class="fas fa-file-alt"></i>  My Statistics</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>Edit Your Information</h1>
+            <div class="details">
+                <div class="detail-row">
+                    <div class="label">Name:</div>
+                    <div class="value"><input type="text" class="input-value">
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <div class="label">Reg No:</div>
+                    <div class="value"><input type="text" class="input-value">
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <div class="label">Email:</div>
+                    <div class="value"><input type="email" class="input-value">
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <div class="label">Gender:</div>
+                    <div class="value"><input type="text" class="input-value">
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <div class="label">Phone No:</div>
+                    <div class="value"><input type="text" class="input-value">
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <div class="label">Upload Profile:</div>
+                    <div class="value"><i class="fa fa-upload upload-icon" aria-hidden="true"></i> <input type="file" class="file-upload"></div>
+                </div>
+            </div>
+            <div class="submit-btn">
+                <button class="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

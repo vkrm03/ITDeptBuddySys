@@ -9,14 +9,14 @@ const mongoose = require('mongoose');
 
 
 
-mongoose.connect("mongodb://localhost:27017/BDS_DB").then(() => {
+mongoose.connect("mongodb+srv://vkrm:vkrm03@mentormentee.gzg8smk.mongodb.net/BDS_DB").then(() => {
     console.log("Connected to DB");
   }).catch(err => {
     console.log(err);
   });
 
 
-let currnt_Id, currnt_image_url ,currnt_role,currentStudentId,Std,Std_Mentee, Admin,staff_name = "DR.Sundaravelrani";
+let currnt_Id, currnt_image_url ,currnt_role,currentStudentId,Std,Std_Mentee, Admin,Reg,staff_name = "DR.Sundaravelrani";
 let std_data = {
     std_mentee_Name : "Kamilath Rifka S",
     std_mentee_Email : "kamilathrifka@gmail.com",
@@ -107,7 +107,6 @@ app.post("/login", async (req, res) => {
     const pass = req.body.pass
     const usr_type = req.body.roles
     currnt_role = usr_type;
-    console.log(currnt_role);
     try {
         if (currnt_role === "adm") {
             if (email === "Admin@admin.com" && pass === "Password") {
@@ -141,6 +140,7 @@ app.post("/login", async (req, res) => {
                 const data_from_db = await Students.find({reg_no : reg});
                 if (data_from_db[0].reg_no === reg && data_from_db[0].std_dob === dob) {
                     Std = true;
+                    Reg = reg
                     res.redirect("/student-dashboard?userId=" + reg + "&success=true");
                 } else {
                     res.redirect("/login?error=An error occurred");
@@ -255,11 +255,20 @@ app.get("/student-stats/info",checkAuth, async (req, res) => {
     }
 });
 
+app.get("/student-stats/info/report",checkAuth, async (req, res) => {
+    console.log(req.query.week);
+    try {
+        res.render("std-report-by-staff.ejs", {StaffName:staff_name,image_url: currnt_image_url});
+    } catch (err) {
+        console.error(err);
+    }
+});
+
 app.get("/std-mentee-dashboard",isMentee, async (req, res) => {
     const success = req.query.success;
     res.render("std-mentee-dashboard.ejs", {success: success, std_data: std_data})
 });
-//odop-std-mentee-question
+
 app.get("/odop-std-mentee-question",isMentee, async (req, res) => {
     res.render("odop-std-mentee-question.ejs", {std_data: std_data});
 });
@@ -294,7 +303,7 @@ app.get("/student-mentee-stats",isMentee, async (req, res) => {
 });
 
 app.get("/student-stats-by-mentee/info",isMentee, async (req, res) => {
-    const particular_std_id= req.query.userId;
+    const particular_std_id= req.query.std_id;
     try {
         const student_data = await Students.find({reg_no:particular_std_id});
         res.render("particular-student-stats-by-std-mentee.ejs", {std_mentee_name:std_data,student_data:student_data[0]});
@@ -303,16 +312,48 @@ app.get("/student-stats-by-mentee/info",isMentee, async (req, res) => {
     }
 });
 
-
-app.get("/student-dashboard",isStd, async (req, res) => {
-    Reg = req.query.userId
-    const success = req.query.success;
-    const student_data = await Students.find({reg_no:Reg});
-    console.log(student_data);
-    res.render("std-dashboard.ejs", {success: success, std_data: student_data[0]})
+app.get("/student-stats-by-mentee/info/report",isMentee, async (req, res) => {
+    try {
+        res.render("particular-student-report-by-std-mentee.ejs", {std_mentee_name:std_data});
+    } catch (err) {
+        console.error(err);
+    }
 });
 
 
+app.get("/student-dashboard",isStd, async (req, res) => {
+    const success = req.query.success;
+    const student_data = await Students.find({reg_no:Reg});
+    res.render("std-dashboard.ejs", {success: success, std_data: student_data[0]})
+});
+
+app.get("/odop-std-question",isStd, async (req, res) => {
+    const student_data = await Students.find({reg_no:Reg});
+    res.render("my-odop.ejs", {std_data: student_data[0]})
+});
+
+app.get("/edit-my",isStd, async (req, res) => {
+    const student_data = await Students.find({reg_no:Reg});
+    res.render("edit-me.ejs", {std_data: student_data[0]})
+});
+
+app.get("/my-stats",isStd, async (req, res) => {
+    try {
+        const student_data = await Students.find({reg_no:Reg});
+        res.render("my-stats.ejs", {std_mentee_name:std_data,student_data:student_data[0]});
+    } catch (err) {
+        console.error(err);
+    }
+});
+
+app.get("/my-stats/report",isStd, async (req, res) => {
+    try {
+        const student_data = await Students.find({reg_no:Reg});
+        res.render("my-stats-report.ejs", {std_mentee_name:std_data,student_data:student_data[0]});
+    } catch (err) {
+        console.error(err);
+    }
+});
 
 app.listen(port,"0.0.0.0", () => {
     console.log(`Server running on http://localhost:${port}`);

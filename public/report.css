@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.code-block {
+    position: relative;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+pre {
+    margin: 0;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    overflow-x: auto;
+}
+
+.copy-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #007bff;
+}
+
+.copy-icon:hover {
+    color: #0056b3;
+}
+
+/* Container for form elements */
+.form-container {
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between elements */
+    margin-top: 20px;
+  }
+  
+  #remarks {
+    max-width: 50%;
+  }
+  #grade {
+    max-width: 10%;
+  }
+  /* Styling for the input fields */
+  .styled-input {
+    flex: 1; /* Allows the inputs to take up available space */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 20%;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+  }
+  
+  .styled-input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Styling for the button */
+  .styled-button {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .styled-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  .styled-button:active {
+    background-color: #004494;
+    transform: scale(1);
+  }
+  
