@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Students info</title>
-    <link rel="stylesheet" href="/edit-student.css">
+    <title>ODOP Info</title>
+    <link rel="stylesheet" href="odop-question.css">
+    <link rel="stylesheet" href="/particular-student-stats.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
     <nav>
         <div class="logo">
             <img src="https://erp.sathyabama.ac.in/assets/images/logo-new.png" alt="Logo">
@@ -20,6 +20,8 @@
         </div>
     </nav>
 
+
+
     <div class="container">
         <div class="sidebar">
             <h1 class="dash">Dashboard</h1>
@@ -29,24 +31,38 @@
             </div>
             <ul>
                 <li><a href="/admin-dashboard"><i class="fas fa-home"></i>  Home</a></li>
-                <li><a href="/odop-question"><i class="fas fa-edit"></i> ODOP Question</a></li>
+                <li><a href="/odop-question"><i class="fas fa-edit"></i>  ODOP Question</a></li>
                 <li><a href="/edit-staff"><i class="fas fa-user-plus"></i>  Edit Staff</a></li>
                 <li><a href="/edit-admin"><i class="fas fa-file-alt"></i>  Edit Admin</a></li>
                 <li><a href="/odop-calc"><i class="fas fa-file-alt"></i> Question Review</a></li>
             </ul>
         </div>
         <div class="main-content">
-            <h1>Edit Staff Info</h1>
-            <div class="details">
-                <% datas.forEach(function(data){ %>
-                <div class="card">
-                    <img src="/Mentees/<%=data%>" alt="John Doe">
-                    <h2><%=data.split('.')[0]%></h2>
-                    <p>example@gmail.com</p>
-                    <p><a href="/edit-staff/Edit?stf_name=<%=data.split('.')[0]%>" style="text-decoration: none;"><i class="fas fa-edit"></i> Edit</a></p>
-                </div>
-                <% }); %>
-            </div>  
+            <h1>ODOP Question</h1>
+            <table class="marks-table">
+                <thead>
+                    <tr>
+                        <th>ODOP Weeks</th>
+                        <th>Question</th>
+                        <th>Posted Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% 
+                        let weekCounter = 1; 
+                        qus_data.forEach(function(data){ 
+                        %>
+                        <tr>
+                            <td class="day">Week <%= weekCounter %></td>
+                            <td><%=data.question%></td>
+                            <td><%=data.posted_date%></td>
+                        </tr>
+                        <% 
+                            weekCounter++; 
+                        }); %>
+
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

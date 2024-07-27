@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Info</title>
     <link rel="stylesheet" href="odop-question.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -33,13 +34,33 @@
                 <li><a href="/odop-question"><i class="fas fa-edit"></i>  ODOP Question</a></li>
                 <li><a href="/edit-staff"><i class="fas fa-user-plus"></i>  Edit Staff</a></li>
                 <li><a href="/edit-admin"><i class="fas fa-file-alt"></i>  Edit Admin</a></li>
+                <li><a href="/odop-calc"><i class="fas fa-file-alt"></i> Question Review</a></li>
             </ul>
         </div>
         <div class="main-content">
             <h1>ODOP Question</h1>
-            <textarea name="odop-question" id="odop-ques" maxlength="150" placeholder="Enter the ODOP Question Here"></textarea>
-            <div class="submit-btn"><button class="submit">Submit</button></div>
+            <form action="/odop-question" method="post">
+                <textarea name="question" id="odop-ques" maxlength="150" placeholder="Enter the ODOP Question Here"></textarea>
+                <div class="submit-btn"><button class="submit" type="submit">Submit</button></div>
+        </form>
         </div>
     </div>
+    <% if (isPosted === "true") { %>
+        <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Question Posted',
+            text: 'Question Posted Successfully'
+        });
+    </script>
+    <% } else if (isPosted === "false") {%>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: 'Failed to Post Question'
+            });
+        </script>
+    <% }%>
 </body>
 </html>

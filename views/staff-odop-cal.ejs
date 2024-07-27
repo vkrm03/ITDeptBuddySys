@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Particular std info</title>
-    
+    <title>ODOP Info</title>
+    <link rel="stylesheet" href="odop-question.css">
     <link rel="stylesheet" href="/particular-student-stats.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -26,7 +26,7 @@
         <div class="sidebar">
             <h1 class="dash">Dashboard</h1>
             <div class="admin-profile">
-                <div class="admin-icon"><img src="/Mentees/SundaraVelrani.jpg" alt="Staff Image"></div>
+                <div class="admin-icon"><img src=<%=image_url%> alt="Staff Image"></div>
                 <p><%=StaffName%></p>
             </div>
             <ul>
@@ -38,52 +38,33 @@
             </ul>
         </div>
         <div class="main-content">
-            <h1><%=student_data.std_name%>'s info</h1>
-            <div class="details">
-                <div class="detail-row">
-                    <div class="label">Name:</div>
-                    <div class="value"><%=student_data.std_name%></div>
-                </div>
-                <div class="detail-row">
-                    <div class="label">Reg No:</div>
-                    <div class="value"><%=student_data.reg_no%></div>
-                </div>
-                <div class="detail-row">
-                    <div class="label">Average Marks:</div>
-                    <div class="value">89</div>
-                </div>
-
-
+            <h1>ODOP Question</h1>
             <table class="marks-table">
                 <thead>
                     <tr>
                         <th>ODOP Weeks</th>
-                        <th>Remarks</th>
-                        <th>Marks</th>
-                        <th>Submited Date</th>
-                        <th>Open</th>
+                        <th>Question</th>
+                        <th>Deadline Date</th>
+                        <th>Meeting Link</th>
                     </tr>
                 </thead>
                 <tbody>
-                    
-                    <tr>
-                        <td class="day">Week 1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                        <td>36</td>
-                        <td>17/09/2024</td>
-                        <td><a href="/student-stats/info/report?week=1"><button class="open-btn">Open</button></a></td>
-                    </tr>
-                    <tr>
-                        <td class="day">Week 2</td>
-                        <td>Submited super explained</td>
-                        <td>25</td>
-                        <td>17/09/2024</td>
-                        <td><a href="/student-stats/info/report?week=2"><button class="open-btn">Open</button></a></td>
-                    </tr>
-                    
+                    <% 
+                        let weekCounter = 1; 
+                        qus_data.forEach(function(data){ 
+                        %>
+                        <tr>
+                            <td class="day">Week <%= weekCounter %></td>
+                            <td><%=data.question%></td>
+                            <td><%=data.deadline%></td>
+                            <td><%=data.meetinglink%></td>
+                        </tr>
+                        <% 
+                            weekCounter++; 
+                        }); %>
+
                 </tbody>
             </table>
-
         </div>
     </div>
 </body>

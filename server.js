@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt');
 const fs = require('fs');
 const { log } = require("console");
 const Students = require("./db")
+const Question = require("./question")
+const staffQue = require("./StaffQues")
 const mongoose = require('mongoose');
 
 
@@ -171,7 +173,36 @@ app.get("/admin-dashboard",isAdmin, async (req, res) => {
 });
 
 app.get("/odop-question",isAdmin, async (req, res) => {
-    res.render("odop-question.ejs");
+    res.render("odop-question.ejs", {isPosted : req.query.isPosted});
+});
+
+
+function Date_and_time() {
+    let date = new Date();
+      let options = {
+          timeZone: 'Asia/Kolkata',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+      };
+  
+      let currentDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+      let istTime = date.toLocaleTimeString('en-IN', options);
+      let date_and_time = currentDate + " " + istTime;
+  
+      return ("Date and Time:", date_and_time);
+  }
+
+
+app.post("/odop-question",isAdmin, async (req, res) => {
+    try {
+        const current_date_and_time = Date_and_time();
+        const order = await Question.create({ question : req.body.question, posted_date : current_date_and_time});
+        res.redirect("/odop-question?isPosted=true")
+    } catch {
+        res.redirect("/odop-question?isPosted=false")
+    }
 });
 
 app.get("/edit-staff",isAdmin, async (req, res) => {
@@ -197,10 +228,15 @@ app.get("/edit-admin",isAdmin, async (req, res) => {
     res.render("edit-admin.ejs");
 });
 
+app.get("/odop-calc",isAdmin, async (req, res) => {
+    const qus_data = await Question.find();
+    res.render("admin-odop-cal.ejs", {qus_data : qus_data});
+});
+
 app.get("/dashboard",checkAuth, async (req, res) => {
         const success = req.query.success;
         res.render("staff-dashboard.ejs", {
-            StaffName: "DR.Sundaravelrani",   
+            StaffName: "DR.Sundaravelrani",
             StaffEmail: "sundaravelrani.k.it@sathyabama.ac.in",
             StaffGender: "Female",
             StaffMobileNum: "+91 9089768909",
@@ -212,8 +248,32 @@ app.get("/dashboard",checkAuth, async (req, res) => {
 });
 
 app.get("/odop-mentee-question",checkAuth, async (req, res) => {
-    res.render("odop-mentee-question.ejs", {StaffName:staff_name,image_url: currnt_image_url});
+    const questions = await Question.find();
+    const latestQue = questions.length > 0 ? questions.slice(-1)[0] : null;
+    res.render("odop-mentee-question.ejs", {StaffName:staff_name,image_url: currnt_image_url, latestQue : latestQue, isPosted : req.query.isPosted });
 });
+
+app.get("/odop-mentee-clac",checkAuth, async (req, res) => {
+    const questions = await staffQue.find();
+    res.render("staff-odop-cal.ejs", {StaffName:staff_name,image_url: currnt_image_url, qus_data : questions});
+});
+
+//StaffQuestion
+app.post("/odop-mentee-question",checkAuth, async (req, res) => {
+    try {
+        const qus = await staffQue.find({question : req.body.question})
+        if (qus.length > 0) {
+            res.redirect("odop-mentee-question?isPosted=already-posted")
+        } else {
+            const staff_qus = await staffQue.create({ question : req.body.question, deadline : req.body.deadline, meetinglink : req.body.link});
+        res.redirect("/odop-mentee-question?isPosted=true")
+        }
+        
+    } catch {
+        res.redirect("odop-mentee-question?isPosted=false")
+    }
+});
+
 
 app.get("/edit-student",checkAuth, async (req, res) => {
     try {
@@ -256,7 +316,6 @@ app.get("/student-stats/info",checkAuth, async (req, res) => {
 });
 
 app.get("/student-stats/info/report",checkAuth, async (req, res) => {
-    console.log(req.query.week);
     try {
         res.render("std-report-by-staff.ejs", {StaffName:staff_name,image_url: currnt_image_url});
     } catch (err) {

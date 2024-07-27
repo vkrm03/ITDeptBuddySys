@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ODOP Info</title>
     <link rel="stylesheet" href="odop-mentee-question.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -33,21 +34,61 @@
                 <li><a href="/odop-mentee-question"><i class="fas fa-edit"></i>  ODOP</a></li>
                 <li><a href="/edit-student"><i class="fas fa-user-plus"></i>  Edit Student</a></li>
                 <li><a href="/student-stats"><i class="fas fa-file-alt"></i>  Student Statistics</a></li>
+                <li><a href="/odop-mentee-clac"><i class="fas fa-file-alt"></i>  ODOP Review</a></li>
             </ul>
         </div>
         <div class="main-content">
             <h1>ODOP Question</h1>
-            <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum nulla accusamus provident id, mollitia autem iure in. Lorem ipsum dolor sit amet1203.</h4>
-            <div class="datetime-container">
-                <label for="deadline">Deadline Time :</label>
-                <input type="datetime-local" name="deadline" id="deadline">
-              </div>  
-              <div class="link-container">
-                <label for="link">Meeting Link :</label>
-                <input type="text" name="deadline" id="deadline">
-              </div>  
-            <div class="submit-btn"><button class="submit">Submit</button></div>
+            <form action="/odop-mentee-question" method="post">
+                <% if (latestQue) { %>
+                    <h4 name="que"><%= latestQue.question %></h4>
+                    <input type="hidden" name="question" value="<%= latestQue.question %>">
+                    <div class="datetime-container">
+                        <label for="deadline">Deadline Time :</label>
+                        <input type="datetime-local" name="deadline" id="deadline" required>
+                      </div>
+                      
+                      <div class="link-container">
+                        <label for="link">Meeting Link :</label>
+                        <input type="text" name="link" id="link" required>
+                      </div>
+                      
+                      <div class="submit-btn">
+                        <button class="submit" type="submit">Submit</button>
+                      </div>
+                  <% } else { %>
+                    <h4>No questions available</h4>
+                    <input type="hidden" name="question" value="">
+                  <% } %>
+              </form>
+              
         </div>
     </div>
+
+    <% if (isPosted === "true") { %>
+        <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Question Posted',
+            text: 'Question Posted Successfully'
+        });
+    </script>
+    <% } else if (isPosted === "false") {%>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: 'Failed to Post Question'
+            });
+        </script>
+    <% } else if (isPosted === "already-posted") {%>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: 'Question Already posted'
+        });
+    </script>
+<% }  %>
 </body>
 </html>
