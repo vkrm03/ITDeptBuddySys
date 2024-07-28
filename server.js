@@ -7,6 +7,7 @@ const { log } = require("console");
 const Students = require("./db")
 const Question = require("./question")
 const staffQue = require("./StaffQues")
+const menteeQue = require("./menteeQues")
 const mongoose = require('mongoose');
 
 
@@ -197,9 +198,14 @@ function Date_and_time() {
 
 app.post("/odop-question",isAdmin, async (req, res) => {
     try {
-        const current_date_and_time = Date_and_time();
-        const order = await Question.create({ question : req.body.question, posted_date : current_date_and_time});
-        res.redirect("/odop-question?isPosted=true")
+        const posted_questions = await Question.find({question : req.body.question});
+        if (posted_questions.length > 0) {
+            res.redirect("/odop-question?isPosted=already-posted")
+        } else {
+            const current_date_and_time = Date_and_time();
+            const order = await Question.create({ question : req.body.question, posted_date : current_date_and_time});
+            res.redirect("/odop-question?isPosted=true")
+        }   
     } catch {
         res.redirect("/odop-question?isPosted=false")
     }
@@ -329,8 +335,39 @@ app.get("/std-mentee-dashboard",isMentee, async (req, res) => {
 });
 
 app.get("/odop-std-mentee-question",isMentee, async (req, res) => {
-    res.render("odop-std-mentee-question.ejs", {std_data: std_data});
+    const questions = await Question.find();
+    const latestQue = questions.length > 0 ? questions.slice(-1)[0] : null;
+    res.render("odop-std-mentee-question.ejs", {std_data: std_data, latestQue : latestQue, isPosted : req.query.isPosted});
 });
+
+//menteeQue
+
+//odop-std-mentee-clac
+app.get("/odop-std-mentee-clac",isMentee, async (req, res) => {
+    try {
+        const qus = await menteeQue.find()
+        res.render("std-mentee-odop-cal.ejs", {std_data : std_data, qus_data : qus});
+    } catch {
+        res.redirect("/odop-std-mentee-question")
+    }
+    
+});
+
+app.post("/odop-std-mentee-question",isMentee, async (req, res) => {
+    try {
+        const qus = await menteeQue.find({question : req.body.question})
+        if (qus.length > 0) {
+            res.redirect("/odop-std-mentee-question?isPosted=already-posted")
+        } else {
+            const staff_qus = await menteeQue.create({ question : req.body.question, deadline : req.body.deadline, meetinglink : req.body.link});
+        res.redirect("/odop-std-mentee-question?isPosted=true")
+        }
+        
+    } catch {
+        res.redirect("odop-std-mentee-question?isPosted=false")
+    }
+}); 
+
 app.get("/edit-student-by-mentee",isMentee, async (req, res) => {
     try {
         const id = "2";

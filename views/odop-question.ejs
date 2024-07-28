@@ -61,6 +61,22 @@
                 text: 'Failed to Post Question'
             });
         </script>
-    <% }%>
+    <% } else if (isPosted === "already-posted") {%>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: 'Question Already posted'
+        });
+    </script>
+<% }  else if (isPosted === "too-soon") {%>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: 'Please wait to post New Question'
+        });
+    </script>
+<% } %>
 </body>
 </html>

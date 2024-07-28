@@ -3,29 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Students Stats</title>
-    <link rel="stylesheet" href="student_stats.css">
+    <title>ODOP Review</title>
+    <link rel="stylesheet" href="odop-mentee-question.css">
+    <link rel="stylesheet" href="/particular-student-stats.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
     <nav>
         <div class="logo">
             <img src="https://erp.sathyabama.ac.in/assets/images/logo-new.png" alt="Logo">
         </div>
         <div class="user-profile">
             <img src="https://erp.sathyabama.ac.in/assets/images/Chancellor.jpg" alt="User Avatar">
-            <div class="username">Student Mentee</div>
+            <div class="username">Student</div>
             <a href="/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i>  Logout</a>
         </div>
     </nav>
+
+
 
     <div class="container">
         <div class="sidebar">
             <h1 class="dash">Dashboard</h1>
             <div class="admin-profile">
                 <div class="admin-icon"><img src="/img/student.jpg" alt="Staff Image"></div>
-                <p><%=std_mentee_name.std_mentee_Name%></p>
+                <p><%=std_data.std_mentee_Name%></p>
             </div>
             <ul>
                 <li><a href="/std-mentee-dashboard"><i class="fas fa-home"></i>  Home</a></li>
@@ -36,18 +38,33 @@
             </ul>
         </div>
         <div class="main-content">
-            <h1>Student Stats</h1>
-            <div class="details">
-                <% std_data.forEach(function(data){ %>
-                <div class="card">
-                    <img src="/img/student.jpg" alt="John Doe">
-                    <h2><%=data.std_name%></h2>
-                    <p>Reg No: <%=data.reg_no%></p>
-                    <p><a href="/student-stats-by-mentee/info?std_id=<%=data.reg_no%>" style="text-decoration: none; color: blue;"><i class="fas fa-external-link-alt"></i> Open</a></p>
-                </div>
-                <% }); %>
-                
-            </div>  
+            <h1>ODOP Question</h1>
+            <table class="marks-table">
+                <thead>
+                    <tr>
+                        <th>ODOP Weeks</th>
+                        <th>Question</th>
+                        <th>Deadline Date</th>
+                        <th>Meeting Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% 
+                        let weekCounter = 1; 
+                        qus_data.forEach(function(data){ 
+                        %>
+                        <tr>
+                            <td class="day">Week <%= weekCounter %></td>
+                            <td><%=data.question%></td>
+                            <td><%=data.deadline%></td>
+                            <td><%=data.meetinglink%></td>
+                        </tr>
+                        <% 
+                            weekCounter++; 
+                        }); %>
+
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
