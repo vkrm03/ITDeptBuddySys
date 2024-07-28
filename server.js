@@ -6,8 +6,9 @@ const fs = require('fs');
 const { log } = require("console");
 const Students = require("./db")
 const Question = require("./question")
-const staffQue = require("./StaffQues")
 const menteeQue = require("./menteeQues")
+const stdAns = require("./stdAns")
+const report = require("./report")
 const mongoose = require('mongoose');
 
 
@@ -198,7 +199,7 @@ function Date_and_time() {
 
 app.post("/odop-question",isAdmin, async (req, res) => {
     try {
-        const posted_questions = await Question.find({question : req.body.question});
+        const posted_questions = await Question.find({question : req.body.question, mentee_id : "1"});
         if (posted_questions.length > 0) {
             res.redirect("/odop-question?isPosted=already-posted")
         } else {
@@ -260,18 +261,18 @@ app.get("/odop-mentee-question",checkAuth, async (req, res) => {
 });
 
 app.get("/odop-mentee-clac",checkAuth, async (req, res) => {
-    const questions = await staffQue.find();
+    const questions = await menteeQue.find({mentee_id : "1"});
     res.render("staff-odop-cal.ejs", {StaffName:staff_name,image_url: currnt_image_url, qus_data : questions});
 });
 
 //StaffQuestion
 app.post("/odop-mentee-question",checkAuth, async (req, res) => {
     try {
-        const qus = await staffQue.find({question : req.body.question})
+        const qus = await menteeQue.find({question : req.body.question, mentee_id : "1"})
         if (qus.length > 0) {
             res.redirect("odop-mentee-question?isPosted=already-posted")
         } else {
-            const staff_qus = await staffQue.create({ question : req.body.question, deadline : req.body.deadline, meetinglink : req.body.link});
+            const staff_qus = await menteeQue.create({ question : req.body.question, deadline : req.body.deadline, meetinglink : req.body.link, mentee_id : "1"});
         res.redirect("/odop-mentee-question?isPosted=true")
         }
         
@@ -345,7 +346,7 @@ app.get("/odop-std-mentee-question",isMentee, async (req, res) => {
 //odop-std-mentee-clac
 app.get("/odop-std-mentee-clac",isMentee, async (req, res) => {
     try {
-        const qus = await menteeQue.find()
+        const qus = await menteeQue.find({mentee_id : "2"})
         res.render("std-mentee-odop-cal.ejs", {std_data : std_data, qus_data : qus});
     } catch {
         res.redirect("/odop-std-mentee-question")
@@ -355,11 +356,11 @@ app.get("/odop-std-mentee-clac",isMentee, async (req, res) => {
 
 app.post("/odop-std-mentee-question",isMentee, async (req, res) => {
     try {
-        const qus = await menteeQue.find({question : req.body.question})
+        const qus = await menteeQue.find({question : req.body.question, mentee_id : "2"})
         if (qus.length > 0) {
             res.redirect("/odop-std-mentee-question?isPosted=already-posted")
         } else {
-            const staff_qus = await menteeQue.create({ question : req.body.question, deadline : req.body.deadline, meetinglink : req.body.link});
+            const staff_qus = await menteeQue.create({ question : req.body.question, deadline : req.body.deadline, meetinglink : req.body.link, mentee_id : "2"});
         res.redirect("/odop-std-mentee-question?isPosted=true")
         }
         
@@ -388,7 +389,7 @@ app.get("/edit-student-by-mentee/Edit",isMentee, async (req, res) => {
 });
 //student-mentee-stats
 
-app.get("/student-mentee-stats",isMentee, async (req, res) => {   
+app.get("/student-mentee-stats",isMentee, async (req, res) => { 
     try {
         const id = "2";
         const student = await Students.find({mentee_id:id});
@@ -424,9 +425,30 @@ app.get("/student-dashboard",isStd, async (req, res) => {
 });
 
 app.get("/odop-std-question",isStd, async (req, res) => {
-    const student_data = await Students.find({reg_no:Reg});
-    res.render("my-odop.ejs", {std_data: student_data[0]})
+    try {
+        const student_data = await Students.find({reg_no:Reg});
+        const current_mentee_id = student_data[0].mentee_id;
+        const ques = await menteeQue.find({mentee_id : current_mentee_id});
+        const latestQue = ques.length > 0 ? ques.slice(-1)[0] : null;
+        res.render("my-odop.ejs", {std_data: student_data[0], que : latestQue})
+    } catch {
+        res.redirect("/student-dashboard");
+    }
+    
 });
+
+app.post("/odop-std-question",isStd, async (req, res) => {
+    try {
+        const student_data = await Students.find({reg_no:Reg});
+        const current_date_and_time = Date_and_time();
+        const ans = await stdAns.create({question : req.body.question, ans : req.body.odopans,output : req.body.odopoutput,std_reg_no : student_data[0].reg_no, submited_date : current_date_and_time});
+        res.redirect("/my-stats")
+    } catch {
+        res.redirect("/odop-std-question");
+    }
+    
+});
+
 
 app.get("/edit-my",isStd, async (req, res) => {
     const student_data = await Students.find({reg_no:Reg});
@@ -436,7 +458,8 @@ app.get("/edit-my",isStd, async (req, res) => {
 app.get("/my-stats",isStd, async (req, res) => {
     try {
         const student_data = await Students.find({reg_no:Reg});
-        res.render("my-stats.ejs", {std_mentee_name:std_data,student_data:student_data[0]});
+        const ans_data = await stdAns.find({reg_no:Reg});
+        res.render("my-stats.ejs", {std_mentee_name:std_data,student_data:student_data[0], std_ans : ans_data});
     } catch (err) {
         console.error(err);
     }

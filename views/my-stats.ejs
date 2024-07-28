@@ -65,20 +65,18 @@
                 </thead>
                 <tbody>
                     
-                    <tr>
-                        <td class="day">Week 1</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                        <td>36</td>
-                        <td>17/09/2024</td>
-                        <td><a href="/my-stats/report?week=1"><button class="open-btn">Open</button></a></td>
-                    </tr>
-                    <tr>
-                        <td class="day">Week 2</td>
-                        <td>Submited super explained</td>
-                        <td>25</td>
-                        <td>17/09/2024</td>
-                        <td><a href="/my-stats/report?week=2"><button class="open-btn">Open</button></a></td>
-                    </tr>
+                    <% 
+                        let weekCounter = 1; 
+                        std_ans.forEach(function(data){ 
+                        %>
+                        <tr>
+                            <td class="day">Week <%= weekCounter %></td>
+                            <td><%=data.question%></td>
+                            <td><%=data.std_reg_no%></td>
+                            <td><%=data.submitted_date%></td>
+                        </tr>
+                        <% weekCounter++; }); %>
+                    
                     
                 </tbody>
             </table>
